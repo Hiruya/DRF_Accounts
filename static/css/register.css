@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.headform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 10vh;
+    border: 1px solid rgb(179, 179, 179);
+    margin-bottom: 0.5rem;
+}
+
+.form1{
+    display: flex;
+    justify-content: center;
+    align-items: flex;
+    width: 80vw;
+    height: 70vh;
+    border: 1px solid rgb(179, 179, 179);
+}
+.form2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: max-content;
+    border: 1px solid rgb(179, 179, 179);
+}
+
+.form3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: max-content;
+    border: 1px solid rgb(179, 179, 179);
+}
+
+.custom {
+    border-color: #1977ad8f;
+}
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height:fit-content;
+}
+
+.form1 form{
+    width: 35%;
+}
+
+.form2 form{
+    width: 40%;
+}
+
+.form3 form{
+    width: 70%;
+}
+
+
+
+/* ============ Stepper CSS Start ============ */
+
+
+.stepper-wrapper {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+  .stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+  
+  .stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 3px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+  }
+  
+  .stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 3px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+  }
+  
+  .stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    margin-bottom: 6px;
+    border: 3px solid #5da1fa;
+  }
+  
+  .stepper-item.active {
+    font-weight: bold;
+  }
+  
+  .stepper-item.completed .step-counter {
+    background-color: #5da1fa;
+  }
+  
+  .stepper-item.completed::after {
+    position: absolute;
+    content: "";
+    border-bottom: 3px solid #5da1fa;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 3;
+  }
+  
+  .stepper-item:first-child::before {
+    content: none;
+  }
+  .stepper-item:last-child::after {
+    content: none;
+  }
+
+
+  /* ============ Stepper CSS End ============ */
+
+
+  /* ============ Phone Country Code CSS Start ============ */
+
+
+
+
+  strong{
+    font-size: 0.8rem;
+}
+
+.iconify{
+    margin-bottom: -1vh;
+}
+
+.select-box {
+    position: relative;
+    width: 27rem;
+    margin: 1rem auto;
+}
+
+.select-box input {
+    width: 100%;
+    height: 0.3rem;
+    padding: 1rem .6rem;
+    font-size: 1.1rem;
+    border: .1rem solid rgba(0, 119, 255, 0.352);
+    outline: none;
+}
+
+input[type="tel"] {
+    border-radius: 0 .5rem .5rem 0;
+}
+
+.select-box input:focus {
+    border: .1rem solid var(--primary);
+}
+
+.selected-option {
+    background-color: #fff;
+    border-radius: .5rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: .1rem solid #1977ad8f;
+
+}
+
+.selected-option div{
+    position: relative;
+    width: 2rem;
+    padding: 0 2.8rem 0 .5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.selected-option div::after{
+    position: absolute;
+    content: "";
+    right: .8rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    
+    width: .8rem;
+    height: .8rem;
+    border-right: .12rem solid var(--primary);
+    border-bottom: .12rem solid var(--primary);
+
+    transition: .2s;
+}
+
+.selected-option div.active::after{
+    transform: translateY(-50%) rotate(225deg);
+}
+
+.select-box .options {
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: .5rem;
+    display: none;
+}
+
+.select-box .options.active {
+    display: block;
+    z-index: 9999999;
+}
+
+.select-box .options::before {
+    position: absolute;
+    content: "";
+    left: 1rem;
+    top: -1.2rem;
+
+    width: 0;
+    height: 0;
+    border: .6rem solid transparent;
+    border-bottom-color: var(--primary);
+}
+
+input.search-box {
+    background-color: #eee;
+    color: rgb(46, 46, 46);
+    border-radius: .5rem .5rem 0 0;
+    padding: 1.4rem 1rem;
+}
+
+.select-box ol {
+    list-style: none;
+    max-height: 23rem;
+    overflow: overlay;
+}
+
+.select-box ol::-webkit-scrollbar {
+    width: 0.6rem;
+}
+
+.select-box ol::-webkit-scrollbar-thumb {
+    width: 0.4rem;
+    height: 3rem;
+    background-color: #ccc;
+    border-radius: .4rem;
+}
+
+.select-box ol li {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.select-box ol li.hide {
+    display: none;
+}
+
+.select-box ol li:not(:last-child) {
+    border-bottom: .1rem solid #eee;
+}
+
+.select-box ol li:hover {
+    background-color: lightcyan;
+}
+
+.select-box ol li .country-name {
+    margin-left: .4rem;
+}
+
+.warn{
+font-size: 0.9rem;
+}
+
+  /* ============ Phone Country Code CSS End ============ */
+
+
+  /* ============ Responsive Phone Country Code CSS Start ============ */
+ 
+@media (max-width: 768px) {
+  .select-box {
+      width: 100%;
+  }
+
+  .selected-option .country-code {
+      padding: 0 .3rem;
+  }
+
+  input[type="tel"] {
+      padding: .8rem .5rem;
+      font-size: 1rem;
+  }
+
+  input.search-box {
+      padding: 1rem .5rem;
+  }
+
+  .select-box ol li {
+      padding: .8rem;
+  }
+
+  .warn{
+    font-size: 0.7rem;
+    }
+}
+
+ /* ============ Responsive Phone Country Code CSS End ============ */

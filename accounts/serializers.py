@@ -1,30 +1,60 @@
+import datetime
 from rest_framework import serializers
-from .models import CustomUser, MemberProfile
+from .models import UserProfile, MemberProfile
 
-class Register1Serializer(serializers.ModelSerializer):
+class CustomDateField(serializers.DateField):
+    def to_representation(self, value):
+        # Convert the date to YYYY/MM/DD format
+        if value:
+            return value.strftime('%Y/%m/%d')
+        return ''
+
+    def to_internal_value(self, data):
+        # Convert the incoming string to a date object
+        try:
+            return datetime.strptime(data, '%Y/%m/%d').date()
+        except ValueError:
+            raise serializers.ValidationError('Date format should be YYYY/MM/DD')
+        
+class RegisterSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(required=True)
+    profile_picture = serializers.ImageField(required=False)  # Make this optional if you prefer
+    phone_number = serializers.CharField(required=True)
+    date_of_birth = CustomDateField(required=True)
+    gender = serializers.ChoiceField(choices=MemberProfile.GENDER_CHOICES, required=True)
+    height = serializers.DecimalField(max_digits=5, decimal_places=2, required=True)
+    weight = serializers.DecimalField(max_digits=5, decimal_places=2, required=True)
+    medical_history = serializers.CharField(required=False)
+
+class MemberProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password']
+        model = MemberProfile
+        fields = [
+            'full_name', 'profile_picture', 'phone_number', 'date_of_birth',
+            'gender', 'height', 'weight', 'medical_history'
+        ]
+
+class RegisterSerializer(serializers.ModelSerializer):
+    profile = MemberProfileSerializer()
+
+    class Meta:
+        model = UserProfile
+        fields = ['username', 'email', 'password', 'profile']
         extra_kwargs = {
-            'password': {'write_only': True}  # To ensure password is not returned in responses
+            'password': {'write_only': True}
         }
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            password=validated_data['password']
-        )
-        return user
+        profile_data = validated_data.pop('profile')
+        user = UserProfile.objects.create_user(**validated_data)
+        
+        MemberProfile.objects.create(user=user, **profile_data)
 
-class Register2Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = MemberProfile
-        fields = ['full_name', 'phone_number', 'date_of_birth', 'gender', 'height', 'weight', 'medical_history']
+        return user
 
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = UserProfile
         fields = ['username', 'email', 'password']
         extra_kwargs = {
             'password': {'write_only': True, 'required': False}  # Optional password update
@@ -42,7 +72,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = MemberProfile
-        fields = ['full_name', 'phone_number', 'date_of_birth', 'gender', 'height', 'weight', 'medical_history']
+        fields = ['full_name', 'profile_picture', 'phone_number', 'date_of_birth', 'gender', 'height', 'weight', 'medical_history']
 
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
